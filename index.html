@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="lumencode_logo_high.png">
+
+  <!-- SEO Meta Tags -->
+  <title>Lumen Code | Web & Mobile App Development Agency</title>
+  <meta name="description" content="Lumen Code is a full-service digital agency offering web applications, mobile apps, SEO, WordPress development, and custom software solutions tailored to your needs." />
+  <meta name="keywords" content="web development, mobile app development, SEO, WordPress, React, Next.js, Node.js, Vite, Angular, custom web application, software development, Lumen Code" />
+  <meta name="author" content="Lumen Code" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://lumencode.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lumencode.com/" />
+  <meta property="og:title" content="Lumen Code | Web & Mobile App Development Agency" />
+  <meta property="og:description" content="From scratch to launch and beyond — Lumen Code builds powerful web apps, mobile apps, SEO strategies, and WordPress sites crafted to your vision." />
+  <meta property="og:image" content="https://lumencode.com/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Lumen Code | Web & Mobile App Development Agency" />
+  <meta name="twitter:description" content="From scratch to launch and beyond — Lumen Code builds powerful digital products tailored to your needs." />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Lumen Code",
+    "url": "https://lumencode.com",
+    "description": "Full-service digital agency offering web applications, mobile apps, SEO, and WordPress development.",
+    "serviceType": ["Web Development", "Mobile App Development", "SEO", "WordPress Development", "Custom Software Development"]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --teal: #34d6ca;
+      --green: #95e479;
+      --dark-teal: #0ba5a3;
+      --black: #000000;
+      --white: #ffffff;
+      --glass: rgba(52, 214, 202, 0.06);
+      --glass-border: rgba(52, 214, 202, 0.15);
+      --text-muted: rgba(255,255,255,0.55);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #000;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, h5 { font-family: 'Syne', sans-serif; font-weight: 700; line-height: 1.15; }
+
+    /* ─── NOISE OVERLAY ───────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ─── AMBIENT GLOW BLOBS ─────────────────────────── */
+    .blob { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; opacity: 0.18; }
+    .blob-1 { width: 600px; height: 600px; background: var(--teal); top: -200px; left: -150px; animation: drift1 18s ease-in-out infinite alternate; }
+    .blob-2 { width: 500px; height: 500px; background: var(--green); bottom: -150px; right: -100px; animation: drift2 22s ease-in-out infinite alternate; }
+    .blob-3 { width: 400px; height: 400px; background: var(--dark-teal); top: 40%; left: 50%; transform: translate(-50%, -50%); animation: drift3 26s ease-in-out infinite alternate; }
+
+    @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(80px, 60px) scale(1.15); } }
+    @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-60px, -80px) scale(1.2); } }
+    @keyframes drift3 { from { transform: translate(-50%,-50%) scale(1); } to { transform: translate(-45%,-55%) scale(1.1); } }
+
+    /* ─── NAVBAR ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 5%; height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: background 0.3s;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { height: 38px; width: 38px; object-fit: contain; border-radius: 6px; }
+    .nav-logo span { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.04em; background: linear-gradient(135deg, var(--teal), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta { background: linear-gradient(135deg, var(--teal), var(--dark-teal)); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.06em; padding: 9px 22px; border-radius: 50px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(52,214,202,0.35); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--teal); border-radius: 2px; transition: all 0.3s; display: block; }
+
+    /* ─── SECTION WRAPPER ────────────────────────────── */
+    section { position: relative; z-index: 1; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+
+    /* ─── HERO ───────────────────────────────────────── */
+    #hero { min-height: 100vh; display: flex; align-items: center; padding-top: 70px; overflow: hidden; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; padding: 80px 5%; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--glass); border: 1px solid var(--glass-border); padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--teal); font-weight: 600; margin-bottom: 24px; animation: fadeUp 0.8s ease both; }
+    .hero-badge::before { content: ''; width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+    .hero-title { font-size: clamp(2.6rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.08; animation: fadeUp 0.9s 0.1s ease both; }
+    .hero-title .line-teal { display: block; background: linear-gradient(135deg, var(--teal) 0%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-slogan { margin-top: 20px; font-size: 1.05rem; color: var(--text-muted); max-width: 480px; animation: fadeUp 1s 0.2s ease both; }
+    .hero-slogan strong { color: var(--teal); font-weight: 500; }
+    .hero-actions { display: flex; gap: 16px; margin-top: 36px; flex-wrap: wrap; animation: fadeUp 1s 0.3s ease both; }
+    .btn-primary { background: linear-gradient(135deg, var(--teal), var(--dark-teal)); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em; padding: 14px 32px; border-radius: 50px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; display: inline-block; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(52,214,202,0.4); }
+    .btn-outline { background: transparent; color: var(--white); font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; padding: 14px 32px; border-radius: 50px; border: 1px solid var(--glass-border); text-decoration: none; cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); background: rgba(52,214,202,0.06); }
+    .hero-stats { display: flex; gap: 40px; margin-top: 48px; animation: fadeUp 1s 0.4s ease both; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 1.9rem; font-weight: 800; background: linear-gradient(135deg, var(--teal), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.04em; }
+    .hero-visual { display: flex; align-items: center; justify-content: center; animation: fadeUp 1s 0.2s ease both; }
+    .hero-logo-wrap { position: relative; width: 340px; height: 340px; }
+    .hero-logo-wrap::before, .hero-logo-wrap::after { content: ''; position: absolute; border-radius: 50%; animation: rotate 12s linear infinite; }
+    .hero-logo-wrap::before { inset: -20px; border: 1px dashed rgba(52,214,202,0.25); }
+    .hero-logo-wrap::after { inset: -50px; border: 1px dashed rgba(149,228,121,0.15); animation-duration: 20s; animation-direction: reverse; }
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .hero-logo-wrap img { width: 100%; height: 100%; object-fit: contain; border-radius: 24px; position: relative; z-index: 2; filter: drop-shadow(0 0 60px rgba(52,214,202,0.3)); }
+    .orbit-dot { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--green); z-index: 3; animation: orbit 8s linear infinite; box-shadow: 0 0 12px var(--green); }
+    .orbit-dot:nth-child(2) { background: var(--teal); animation-duration: 12s; animation-direction: reverse; top: -55px; left: 50%; box-shadow: 0 0 12px var(--teal); }
+    .orbit-dot:nth-child(3) { background: var(--dark-teal); animation-duration: 16s; top: 50%; left: -55px; box-shadow: 0 0 12px var(--dark-teal); }
+    @keyframes orbit { from { transform: rotate(0deg) translateX(170px) rotate(0deg); } to { transform: rotate(360deg) translateX(170px) rotate(-360deg); } }
+
+    /* ─── SECTION LABEL ──────────────────────────────── */
+    .section-label { font-size: 0.72rem; letter-spacing: 0.14em; color: var(--teal); font-weight: 700; font-family: 'Syne', sans-serif; text-transform: uppercase; margin-bottom: 12px; }
+    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .section-sub { font-size: 1rem; color: var(--text-muted); max-width: 520px; }
+
+    /* ─── SERVICES ───────────────────────────────────── */
+    #services { padding: 120px 0; background: linear-gradient(180deg, #000 0%, #020f0e 50%, #000 100%); }
+    .services-header { margin-bottom: 64px; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .service-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 36px 32px; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; cursor: default; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), var(--green), transparent); opacity: 0; transition: opacity 0.3s; }
+    .service-card:hover { transform: translateY(-8px); border-color: rgba(52,214,202,0.3); box-shadow: 0 20px 60px rgba(52,214,202,0.1); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, rgba(52,214,202,0.15), rgba(149,228,121,0.08)); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 22px; }
+    .service-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--white); font-family: 'Syne', sans-serif; }
+    .service-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ─── TECH STACK ─────────────────────────────────── */
+    #tech { padding: 100px 0; background: #000; }
+    .tech-header { margin-bottom: 56px; }
+    .tech-grid { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 48px; }
+    .tech-pill { display: flex; align-items: center; gap: 10px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 50px; padding: 10px 20px; font-size: 0.9rem; font-weight: 500; color: var(--white); transition: all 0.3s; cursor: default; }
+    .tech-pill:hover { border-color: var(--teal); color: var(--teal); background: rgba(52,214,202,0.08); transform: scale(1.05); }
+    .tech-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--green)); flex-shrink: 0; }
+    .tech-promise { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 60px; }
+    .promise-card { background: linear-gradient(135deg, rgba(52,214,202,0.06), rgba(149,228,121,0.03)); border: 1px solid var(--glass-border); border-radius: 20px; padding: 32px; display: flex; gap: 20px; align-items: flex-start; transition: border-color 0.3s; }
+    .promise-card:hover { border-color: rgba(52,214,202,0.3); }
+    .promise-icon { font-size: 2rem; flex-shrink: 0; }
+    .promise-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .promise-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ─── TESTIMONIALS ───────────────────────────────── */
+    #testimonials { padding: 120px 0; background: linear-gradient(180deg, #000 0%, #021211 60%, #000 100%); overflow: hidden; }
+    .testimonials-header { margin-bottom: 64px; }
+    .testi-track-wrap { overflow: hidden; position: relative; }
+    .testi-track-wrap::before, .testi-track-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 10; pointer-events: none; }
+    .testi-track-wrap::before { left: 0; background: linear-gradient(90deg, #021211, transparent); }
+    .testi-track-wrap::after { right: 0; background: linear-gradient(-90deg, #021211, transparent); }
+    .testi-track { display: flex; gap: 24px; animation: scrollLeft 35s linear infinite; width: max-content; }
+    .testi-track:hover { animation-play-state: paused; }
+    @keyframes scrollLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .testi-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 32px; width: 340px; flex-shrink: 0; transition: border-color 0.3s; }
+    .testi-card:hover { border-color: rgba(52,214,202,0.3); }
+    .testi-stars { display: flex; gap: 3px; margin-bottom: 16px; }
+    .testi-stars span { color: var(--green); font-size: 0.9rem; }
+    .testi-text { font-size: 0.9rem; line-height: 1.75; color: rgba(255,255,255,0.8); margin-bottom: 24px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--green)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem; color: #000; flex-shrink: 0; }
+    .testi-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; }
+    .testi-role { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ─── CONTACT ─────────────────────────────────────── */
+    #contact { padding: 120px 0; background: #000; }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+    .contact-info .section-sub { margin-bottom: 40px; }
+    .contact-detail { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; font-size: 0.9rem; }
+    .contact-detail-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--glass); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .contact-detail-text strong { display: block; font-size: 0.78rem; color: var(--teal); font-weight: 600; letter-spacing: 0.06em; margin-bottom: 2px; }
+    .contact-form { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; padding: 48px; }
+    .form-title { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 28px; }
+    .form-group { margin-bottom: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label { display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; color: var(--teal); margin-bottom: 8px; text-transform: uppercase; }
+    input, textarea, select { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 12px; padding: 13px 16px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; -webkit-appearance: none; }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
+    input:focus, textarea:focus, select:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(52,214,202,0.1); }
+    select option { background: #0a1a1a; color: var(--white); }
+    textarea { resize: vertical; min-height: 130px; }
+    .form-submit { width: 100%; background: linear-gradient(135deg, var(--teal), var(--dark-teal)); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.04em; padding: 16px; border: none; border-radius: 12px; cursor: pointer; margin-top: 8px; transition: transform 0.2s, box-shadow 0.2s; }
+    .form-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(52,214,202,0.4); }
+    .form-success { display: none; text-align: center; padding: 20px; background: rgba(52,214,202,0.08); border: 1px solid rgba(52,214,202,0.3); border-radius: 12px; margin-top: 16px; color: var(--teal); font-weight: 600; }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer { background: #000; border-top: 1px solid var(--glass-border); padding: 60px 0 40px; position: relative; z-index: 1; }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+    .footer-brand { max-width: 320px; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .footer-logo img { height: 36px; width: 36px; object-fit: contain; border-radius: 6px; }
+    .footer-logo span { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; background: linear-gradient(135deg, var(--teal), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-tagline { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+    .footer-col-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--white); margin-bottom: 20px; text-transform: uppercase; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { color: var(--text-muted); font-size: 0.88rem; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 32px; border-top: 1px solid var(--glass-border); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-copy span { color: var(--teal); }
+    .social-links { display: flex; gap: 12px; }
+    .social-link { width: 36px; height: 36px; border-radius: 10px; background: var(--glass); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: all 0.2s; }
+    .social-link:hover { border-color: var(--teal); color: var(--teal); background: rgba(52,214,202,0.08); }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── DIVIDER ─────────────────────────────────────── */
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--glass-border), transparent); margin: 0 auto; max-width: 800px; }
+
+    /* ─── MOBILE MENU ─────────────────────────────────── */
+    .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(0,0,0,0.96); backdrop-filter: blur(20px); z-index: 999; padding: 24px 5%; border-bottom: 1px solid var(--glass-border); flex-direction: column; gap: 20px; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { color: var(--white); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 8px 0; border-bottom: 1px solid var(--glass-border); }
+    .mobile-nav a:last-child { border-bottom: none; }
+
+    /* ─── PROCESS SECTION ────────────────────────────── */
+    #process { padding: 100px 0; background: linear-gradient(180deg, #000 0%, #010a09 50%, #000 100%); }
+    .process-header { margin-bottom: 64px; }
+    .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0; position: relative; }
+    .process-steps::before { content: ''; position: absolute; top: 30px; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--teal), var(--green), transparent); z-index: 0; }
+    .process-step { position: relative; z-index: 1; text-align: center; padding: 0 20px; }
+    .process-num { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--dark-teal)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: #000; margin: 0 auto 24px; box-shadow: 0 0 30px rgba(52,214,202,0.3); }
+    .process-step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 10px; }
+    .process-step-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+      .hero-slogan { margin: 16px auto 0; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; gap: 32px; }
+      .hero-visual { order: -1; }
+      .hero-logo-wrap { width: 220px; height: 220px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .tech-promise { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .process-steps::before { display: none; }
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .contact-form { padding: 32px 24px; }
+      .hero-stats { flex-direction: column; gap: 20px; align-items: center; }
+      .hero-logo-wrap { width: 180px; height: 180px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient blobs -->
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav role="navigation" aria-label="Main navigation">
+    <a href="#hero" class="nav-logo" aria-label="Lumen Code Home">
+      <img src="/lumencode_logo_high.png" alt="Lumen Code Logo" />
+      <span>LUMEN CODE</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#tech">Tech Stack</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">GET A QUOTE</a>
+    <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+    <a href="#services" onclick="toggleMenu()">Services</a>
+    <a href="#tech" onclick="toggleMenu()">Tech Stack</a>
+    <a href="#process" onclick="toggleMenu()">Process</a>
+    <a href="#testimonials" onclick="toggleMenu()">Testimonials</a>
+    <a href="#contact" onclick="toggleMenu()">Contact</a>
+    <a href="#contact" class="btn-primary" onclick="toggleMenu()" style="text-align:center;border-radius:12px;">Get a Quote →</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Hero section">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge" role="status">🟢 Currently Taking New Clients</div>
+        <h1 class="hero-title">
+          We Build Digital<br/>
+          <span class="line-teal">Products That</span>
+          Actually Work.
+        </h1>
+        <p class="hero-slogan">
+          <strong>From scratch to scale</strong> — Lumen Code crafts web apps, mobile experiences, and digital strategies tailored precisely to your vision.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Start Your Project →</a>
+          <a href="#services" class="btn-outline">Explore Services</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">50+</div>
+            <div class="stat-label">Projects Delivered</div>
+          </div>
+          <div>
+            <div class="stat-num">99%</div>
+            <div class="stat-label">Client Satisfaction</div>
+          </div>
+          <div>
+            <div class="stat-num">5★</div>
+            <div class="stat-label">Avg. Review Rating</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-logo-wrap">
+          <div class="orbit-dot"></div>
+          <div class="orbit-dot"></div>
+          <div class="orbit-dot"></div>
+          <img src="/lumencode_logo_high.png" alt="Lumen Code — Digital Agency" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SERVICES -->
+  <section id="services" aria-label="Services">
+    <div class="container">
+      <div class="services-header reveal">
+        <p class="section-label">What We Do</p>
+        <h2 class="section-title">Services Built Around<br/> <span style="background: linear-gradient(135deg, var(--teal), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Your Goals</span></h2>
+        <p class="section-sub">We handle everything from concept to deployment — and we stay with you long after launch to keep things running smoothly.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🌐</div>
+          <h3 class="service-title">Web Application Development</h3>
+          <p class="service-desc">Custom, high-performance web apps built from the ground up. We architect scalable, secure solutions that grow with your business — no templates, no shortcuts.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📱</div>
+          <h3 class="service-title">Mobile App Development</h3>
+          <p class="service-desc">Native and cross-platform mobile experiences for iOS and Android. Smooth, fast, and beautifully designed apps your users will love to open every day.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔍</div>
+          <h3 class="service-title">SEO Optimization</h3>
+          <p class="service-desc">Technical SEO, content strategy, and performance tuning that pushes you to the top of search results and keeps you there. Real rankings, real traffic, real results.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">⚡</div>
+          <h3 class="service-title">WordPress Development</h3>
+          <p class="service-desc">Lightning-fast, custom WordPress sites that are easy for your team to manage. From simple blogs to complex multi-site networks — built properly, not hacked together.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🛠️</div>
+          <h3 class="service-title">Custom Software Development</h3>
+          <p class="service-desc">Got a unique problem? We engineer bespoke software solutions tailored to your exact workflow. From internal tools to client-facing platforms — we build what you need.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔄</div>
+          <h3 class="service-title">Maintenance & Support</h3>
+          <p class="service-desc">We don't just build and disappear. Ongoing updates, security patches, performance monitoring, and feature enhancements to keep your product at its very best.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top: 80px;"></div>
+
+  <!-- TECH STACK -->
+  <section id="tech" aria-label="Tech stack">
+    <div class="container">
+      <div class="tech-header reveal">
+        <p class="section-label">Our Arsenal</p>
+        <h2 class="section-title">The Tech Stack<br/><span style="background: linear-gradient(135deg, var(--teal), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">We Master</span></h2>
+        <p class="section-sub">We work with the most powerful, battle-tested technologies — chosen for performance, not hype.</p>
+      </div>
+
+      <div class="tech-grid reveal">
+        <div class="tech-pill"><span class="dot"></span> React</div>
+        <div class="tech-pill"><span class="dot"></span> Next.js</div>
+        <div class="tech-pill"><span class="dot"></span> Node.js</div>
+        <div class="tech-pill"><span class="dot"></span> Vite</div>
+        <div class="tech-pill"><span class="dot"></span> Angular</div>
+        <div class="tech-pill"><span class="dot"></span> WordPress</div>
+        <div class="tech-pill"><span class="dot"></span> TypeScript</div>
+        <div class="tech-pill"><span class="dot"></span> Tailwind CSS</div>
+        <div class="tech-pill"><span class="dot"></span> MongoDB</div>
+        <div class="tech-pill"><span class="dot"></span> PostgreSQL</div>
+        <div class="tech-pill"><span class="dot"></span> REST APIs</div>
+        <div class="tech-pill"><span class="dot"></span> GraphQL</div>
+        <div class="tech-pill"><span class="dot"></span> AWS / Cloud</div>
+        <div class="tech-pill"><span class="dot"></span> Docker</div>
+        <div class="tech-pill"><span class="dot"></span> React Native</div>
+        <div class="tech-pill"><span class="dot"></span> Git & CI/CD</div>
+      </div>
+
+      <div class="tech-promise reveal">
+        <div class="promise-card">
+          <div class="promise-icon">🏗️</div>
+          <div>
+            <p class="promise-title">Built From Scratch</p>
+            <p class="promise-desc">Every project starts with a clean slate. We architect solutions specifically for your business — no recycled code, no one-size-fits-all templates. Your product, your way.</p>
+          </div>
+        </div>
+        <div class="promise-card">
+          <div class="promise-icon">🛡️</div>
+          <div>
+            <p class="promise-title">Maintained Long-Term</p>
+            <p class="promise-desc">Launching is just the beginning. We offer ongoing maintenance, updates, and feature development so your digital product evolves as fast as your business does.</p>
+          </div>
+        </div>
+        <div class="promise-card">
+          <div class="promise-icon">🚀</div>
+          <div>
+            <p class="promise-title">Performance-First</p>
+            <p class="promise-desc">Speed isn't optional — it's a competitive advantage. Every line we write is optimised for blazing-fast load times, smooth UX, and top-tier Core Web Vitals scores.</p>
+          </div>
+        </div>
+        <div class="promise-card">
+          <div class="promise-icon">🎯</div>
+          <div>
+            <p class="promise-title">Results-Driven</p>
+            <p class="promise-desc">We tie every decision to your business goals. Design, architecture, tech choices — it all serves one purpose: helping you grow and succeed in your market.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top: 80px;"></div>
+
+  <!-- PROCESS -->
+  <section id="process" aria-label="Our process">
+    <div class="container">
+      <div class="process-header reveal" style="text-align: center; margin-bottom: 80px;">
+        <p class="section-label">How We Work</p>
+        <h2 class="section-title">A Process Built for<br/><span style="background: linear-gradient(135deg, var(--teal), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Clarity & Results</span></h2>
+        <p class="section-sub" style="margin: 0 auto;">No surprises, no scope creep, no mystery. We follow a structured process that keeps you informed at every step.</p>
+      </div>
+      <div class="process-steps reveal">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h3 class="process-step-title">Discovery</h3>
+          <p class="process-step-desc">We deep-dive into your goals, audience, and requirements to map out the perfect solution.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h3 class="process-step-title">Design</h3>
+          <p class="process-step-desc">Wireframes and high-fidelity designs crafted around your brand and your users' needs.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h3 class="process-step-title">Build</h3>
+          <p class="process-step-desc">Clean, scalable code developed with the right tech stack for your specific project.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <h3 class="process-step-title">Launch</h3>
+          <p class="process-step-desc">Thorough QA, performance tuning, and a smooth deployment to production.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">05</div>
+          <h3 class="process-step-title">Grow</h3>
+          <p class="process-step-desc">Ongoing support, updates, and new features to keep your product ahead of the curve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top: 80px;"></div>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" aria-label="Testimonials">
+    <div class="container">
+      <div class="testimonials-header reveal">
+        <p class="section-label">Client Stories</p>
+        <h2 class="section-title">Don't Just Take<br/><span style="background: linear-gradient(135deg, var(--teal), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Our Word For It</span></h2>
+        <p class="section-sub">Real results from real clients. Here's what people say after working with Lumen Code.</p>
+      </div>
+    </div>
+
+    <div class="testi-track-wrap">
+      <div class="testi-track" aria-label="Testimonials carousel">
+
+        <!-- Card 1 -->
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"Lumen Code completely transformed our online presence. Our new web app is fast, beautiful, and our conversions went up by 40% in the first month alone."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">AJ</div>
+            <div>
+              <p class="testi-name">Alex Johnson</p>
+              <p class="testi-role">CEO, BrightPath Solutions</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"Working with Lumen Code on our mobile app was seamless. They understood exactly what we needed, delivered on time, and the end result blew us away."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">SR</div>
+            <div>
+              <p class="testi-name">Sarah Rodrigues</p>
+              <p class="testi-role">Founder, UrbanFlow App</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"Their SEO work got us from page 4 to page 1 on Google within 3 months. The increase in organic traffic has been a game changer for our business."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">MP</div>
+            <div>
+              <p class="testi-name">Marcus Perera</p>
+              <p class="testi-role">Marketing Director, NovaTech</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"The WordPress site they built for us is incredibly fast and so easy to manage. Our team can update content without any technical knowledge. Absolutely worth it."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">LT</div>
+            <div>
+              <p class="testi-name">Laura Tran</p>
+              <p class="testi-role">Operations Manager, GreenLeaf Co.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"They built our entire custom platform from scratch. What impressed me most was how they took time to truly understand our workflow before writing a single line of code."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">DK</div>
+            <div>
+              <p class="testi-name">Daniel Kim</p>
+              <p class="testi-role">CTO, LogiStack Systems</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"I've worked with many dev agencies over the years. Lumen Code stands out for their communication, professionalism, and how much they genuinely care about the outcome."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">FN</div>
+            <div>
+              <p class="testi-name">Fatima Noor</p>
+              <p class="testi-role">Product Lead, Connectly</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"Lumen Code rebuilt our legacy system into a modern Next.js platform. Deployment was smooth and our team loves working with the new codebase. Huge improvement."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">RC</div>
+            <div>
+              <p class="testi-name">Ryan Clarke</p>
+              <p class="testi-role">Engineering Manager, DataPulse</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 8 -->
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"From day one they were transparent, responsive and delivered exactly what was promised. Our e-commerce store is now running at peak performance. Highly recommend."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">ZM</div>
+            <div>
+              <p class="testi-name">Zara Malik</p>
+              <p class="testi-role">Founder, StyleVault</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Duplicate for seamless loop -->
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"Lumen Code completely transformed our online presence. Our new web app is fast, beautiful, and our conversions went up by 40% in the first month alone."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">AJ</div>
+            <div>
+              <p class="testi-name">Alex Johnson</p>
+              <p class="testi-role">CEO, BrightPath Solutions</p>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"Working with Lumen Code on our mobile app was seamless. They understood exactly what we needed, delivered on time, and the end result blew us away."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">SR</div>
+            <div>
+              <p class="testi-name">Sarah Rodrigues</p>
+              <p class="testi-role">Founder, UrbanFlow App</p>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"Their SEO work got us from page 4 to page 1 on Google within 3 months. The increase in organic traffic has been a game changer for our business."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">MP</div>
+            <div>
+              <p class="testi-name">Marcus Perera</p>
+              <p class="testi-role">Marketing Director, NovaTech</p>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"The WordPress site they built for us is incredibly fast and so easy to manage. Our team can update content without any technical knowledge. Absolutely worth it."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">LT</div>
+            <div>
+              <p class="testi-name">Laura Tran</p>
+              <p class="testi-role">Operations Manager, GreenLeaf Co.</p>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"They built our entire custom platform from scratch. What impressed me most was how they took time to truly understand our workflow before writing a single line of code."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">DK</div>
+            <div>
+              <p class="testi-name">Daniel Kim</p>
+              <p class="testi-role">CTO, LogiStack Systems</p>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"I've worked with many dev agencies over the years. Lumen Code stands out for their communication, professionalism, and how much they genuinely care about the outcome."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">FN</div>
+            <div>
+              <p class="testi-name">Fatima Noor</p>
+              <p class="testi-role">Product Lead, Connectly</p>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"Lumen Code rebuilt our legacy system into a modern Next.js platform. Deployment was smooth and our team loves working with the new codebase. Huge improvement."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">RC</div>
+            <div>
+              <p class="testi-name">Ryan Clarke</p>
+              <p class="testi-role">Engineering Manager, DataPulse</p>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="testi-text">"From day one they were transparent, responsive and delivered exactly what was promised. Our e-commerce store is now running at peak performance. Highly recommend."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">ZM</div>
+            <div>
+              <p class="testi-name">Zara Malik</p>
+              <p class="testi-role">Founder, StyleVault</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top: 80px;"></div>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-label="Contact us">
+    <div class="container">
+      <div class="contact-inner">
+        <!-- Info Side -->
+        <div class="contact-info reveal">
+          <p class="section-label">Get In Touch</p>
+          <h2 class="section-title">Let's Build Something<br/><span style="background: linear-gradient(135deg, var(--teal), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Remarkable Together</span></h2>
+          <p class="section-sub">Have a project in mind? We'd love to hear about it. Fill in the form and we'll get back to you within 24 hours.</p>
+
+          <div style="margin-top: 40px;">
+            <div class="contact-detail">
+              <div class="contact-detail-icon">📧</div>
+              <div class="contact-detail-text">
+                <strong>EMAIL</strong>
+                hello@lumencode.com
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">📞</div>
+              <div class="contact-detail-text">
+                <strong>PHONE</strong>
+                +1 (555) 000-0000
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">🌍</div>
+              <div class="contact-detail-text">
+                <strong>AVAILABILITY</strong>
+                Mon – Fri, 9am – 6pm
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">⚡</div>
+              <div class="contact-detail-text">
+                <strong>RESPONSE TIME</strong>
+                Within 24 hours guaranteed
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini CTA card -->
+          <div style="margin-top: 40px; background: linear-gradient(135deg, rgba(52,214,202,0.1), rgba(149,228,121,0.05)); border: 1px solid var(--glass-border); border-radius: 20px; padding: 28px;">
+            <p style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px;">🚀 Ready to launch?</p>
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.65;">We take on a limited number of projects each month to ensure every client gets our full attention. Reach out now to secure your spot.</p>
+          </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="contact-form reveal">
+          <h3 class="form-title">Start Your Project</h3>
+
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" placeholder="John" required />
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" placeholder="Doe" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="john@company.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="company">Company / Website (Optional)</label>
+              <input type="text" id="company" name="company" placeholder="Your Company Inc." />
+            </div>
+
+            <div class="form-group">
+              <label for="service">Service You're Interested In</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>Select a service…</option>
+                <option value="web-app">Web Application Development</option>
+                <option value="mobile-app">Mobile App Development</option>
+                <option value="seo">SEO Optimization</option>
+                <option value="wordpress">WordPress Development</option>
+                <option value="custom">Custom Software Development</option>
+                <option value="maintenance">Maintenance & Support</option>
+                <option value="other">Other / Not Sure Yet</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="budget">Estimated Budget</label>
+              <select id="budget" name="budget">
+                <option value="" disabled selected>Select a range…</option>
+                <option value="<5k">Under $5,000</option>
+                <option value="5-15k">$5,000 – $15,000</option>
+                <option value="15-50k">$15,000 – $50,000</option>
+                <option value="50k+">$50,000+</option>
+                <option value="discuss">Prefer to discuss</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Tell Us About Your Project</label>
+              <textarea id="message" name="message" placeholder="Describe your project, goals, timeline, or any questions you have…" required></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">Send Message →</button>
+
+            <div class="form-success" id="formSuccess">
+              ✅ Message sent! We'll be in touch within 24 hours.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="/lumencode_logo_high.png" alt="Lumen Code Logo" />
+            <span>LUMEN CODE</span>
+          </div>
+          <p class="footer-tagline">From scratch to scale — we build, launch, and maintain digital products that drive real results. Your vision, our craft.</p>
+          <div class="social-links" style="margin-top: 24px;">
+            <a href="#" class="social-link" aria-label="Twitter / X">𝕏</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+            <a href="#" class="social-link" aria-label="GitHub">⌥</a>
+            <a href="#" class="social-link" aria-label="Instagram">◈</a>
+          </div>
+        </div>
+
+        <!-- Services Links -->
+        <div>
+          <p class="footer-col-title">Services</p>
+          <ul class="footer-links">
+            <li><a href="#services">Web Applications</a></li>
+            <li><a href="#services">Mobile Apps</a></li>
+            <li><a href="#services">SEO Optimization</a></li>
+            <li><a href="#services">WordPress Sites</a></li>
+            <li><a href="#services">Custom Software</a></li>
+            <li><a href="#services">Maintenance</a></li>
+          </ul>
+        </div>
+
+        <!-- Company Links -->
+        <div>
+          <p class="footer-col-title">Company</p>
+          <ul class="footer-links">
+            <li><a href="#tech">Tech Stack</a></li>
+            <li><a href="#process">Our Process</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#contact">Get a Quote</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© <span id="year"></span> <span>Lumen Code</span>. All rights reserved. Built with ❤️ and great code.</p>
+        <div style="display: flex; gap: 20px;">
+          <a href="#" style="color: var(--text-muted); font-size: 0.8rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text-muted)'">Privacy Policy</a>
+          <a href="#" style="color: var(--text-muted); font-size: 0.8rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text-muted)'">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── MOBILE MENU ───────────────────────────────────
+    function toggleMenu() {
+      const nav = document.getElementById('mobileNav');
+      const ham = document.querySelector('.hamburger');
+      nav.classList.toggle('open');
+      const isOpen = nav.classList.contains('open');
+      const spans = ham.querySelectorAll('span');
+      if (isOpen) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      } else {
+        spans[0].style.transform = '';
+        spans[1].style.opacity = '';
+        spans[2].style.transform = '';
+      }
+    }
+
+    // ─── CLOSE MENU ON OUTSIDE CLICK ──────────────────
+    document.addEventListener('click', function(e) {
+      const nav = document.getElementById('mobileNav');
+      const ham = document.querySelector('.hamburger');
+      if (nav.classList.contains('open') && !nav.contains(e.target) && !ham.contains(e.target)) {
+        toggleMenu();
+      }
+    });
+
+    // ─── SCROLL REVEAL ─────────────────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80 * i);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ─── NAVBAR SCROLL EFFECT ──────────────────────────
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.style.background = 'rgba(0,0,0,0.92)';
+      } else {
+        nav.style.background = 'rgba(0,0,0,0.6)';
+      }
+    });
+
+    // ─── ACTIVE NAV LINK ───────────────────────────────
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 120) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
+      });
+    });
+
+    // ─── CONTACT FORM ──────────────────────────────────
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.form-submit');
+      btn.textContent = 'Sending…';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+      setTimeout(() => {
+        document.getElementById('formSuccess').style.display = 'block';
+        btn.textContent = 'Message Sent ✓';
+        btn.style.background = 'linear-gradient(135deg, #95e479, #34d6ca)';
+        this.reset();
+      }, 1200);
+    });
+
+    // ─── FOOTER YEAR ───────────────────────────────────
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ─── SMOOTH ANCHOR OFFSET ─────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
